@@ -3,13 +3,6 @@ pipeline {
         label 'king'
     }
 
-    environment {
-        TOMCAT_HOST = '172.31.3.184'
-        TOMCAT_USER = 'root'
-        TOMCAT_DIR = '/opt/apache-tomcat-8.5.98/webapps'
-        JAR_FILE = 'bus-booking-app-1.0-SNAPSHOT.jar'  // Replace with the actual name of your JAR file
-    }
-
     stages {
         stage('checkout') {
             steps {
@@ -40,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // Run the JAR file using java -jar
-                    sh "nohup timeout 10s java -jar target/${JAR_FILE} > output.log 2>&1 &"
+                    sh "nohup timeout 10s java -jar target/simple-parcel-service-app-1.0-SNAPSHOT.jar > output.log 2>&1 &"
                     // Sleep for a while to allow the application to start (adjust as needed)
                     sleep 10
                 }
@@ -50,7 +43,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'ssh root@172.31.3.184'
-                sh "scp /home/king/workspace/bus-booking-pipeline/target/bus-booking-app-1.0-SNAPSHOT.jar root@172.31.3.184:/opt/apache-tomcat-8.5.98/webapps/"
+                sh "scp /home/king/workspace/target/simple-parcel-service-app-1.0-SNAPSHOT.jar root@172.31.3.184:/opt/apache-tomcat-8.5.98/webapps/"
             }
         }
         
