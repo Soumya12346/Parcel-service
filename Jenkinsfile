@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                sh 'rm -rf bus_booking'
-                sh 'git clone https://github.com/sudhasanshi/bus_booking.git'
+                sh 'rm -rf Parcel-service'
+                sh 'git clone https://github.com/Soumya12346/Parcel-service.git'
             }
         }
 
@@ -43,7 +43,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'ssh root@172.31.3.184'
-                sh "scp /home/king/workspace/target/simple-parcel-service-app-1.0-SNAPSHOT.jar root@172.31.3.184:/opt/apache-tomcat-8.5.98/webapps/"
+                sh "scp /home/slave/workspace/target/simple-parcel-service-app-1.0-SNAPSHOT.jar root@172.31.3.184:/opt/apache-tomcat-8.5.98/webapps/"
             }
         }
         
